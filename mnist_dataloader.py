@@ -25,7 +25,7 @@ class MnistDataset(Dataset):
         else:
             image = self.frame.iloc[idx, :]
         image = np.array([image]).astype('float').reshape(28, 28, 1)
-        #image /= 256
+        image /= 255.0
         if self.train:
             index = self.frame.iloc[idx, 0]
             label = np.zeros(10)
