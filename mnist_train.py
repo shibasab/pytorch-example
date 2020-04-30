@@ -53,7 +53,7 @@ def val(dataloader, trained_model, device, data_num):
 
 
 if __name__ == '__main__':
-    epochs = 100
+    epochs = 50
     batch_size = 100
     best_acc = 0.0
 
@@ -64,7 +64,6 @@ if __name__ == '__main__':
     n_samples = len(mnist_dataset)
     train_size = int(n_samples * 0.8)
     val_size = n_samples - train_size
-
     train_dataset, val_dataset = torch.utils.data.random_split(
         mnist_dataset, [train_size, val_size])
 
@@ -79,8 +78,8 @@ if __name__ == '__main__':
     best_model_wts = copy.deepcopy(net.state_dict())
 
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.SGD(net.parameters(), lr=0.001,
-                          momentum=0.9, nesterov=True)
+    optimizer = optim.RMSprop(
+        net.parameters(),  lr=0.001, alpha=0.9, eps=1e-08, weight_decay=0.0)
 
     for epoch in range(epochs):
         train(train_dataloader, net, optimizer, criterion,
@@ -92,5 +91,5 @@ if __name__ == '__main__':
             best_model_wts = copy.deepcopy(net.state_dict())
 
     net.load_state_dict(best_model_wts)
-    torch.save(net.state_dict(), "models/mnist_model.pkl")
+    torch.save(net.state_dict(), "models/mnist_model4.pkl")
     print('finished!')
