@@ -23,7 +23,7 @@ test_dataset = MnistDataset(
 test_dataloader = DataLoader(test_dataset, batch_size=1, shuffle=False)
 
 net = Net(in_channel=1, num_classes=10)
-net.load_state_dict(torch.load("models/mnist_model.pkl"))
+net.load_state_dict(torch.load("models/mnist_model4.pkl"))
 net = net.to(device)
 net.eval()
 
@@ -36,5 +36,5 @@ with torch.no_grad():
         _, predicted = torch.max(output.data, 1)
         out_list.append([i+1, predicted[0].item()])
 
-save_csv("results/mnist_result2.csv", out_list)
+save_csv("results/mnist_result4.csv", out_list)
 print("\nFinished!")
