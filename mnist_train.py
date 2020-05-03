@@ -36,9 +36,9 @@ def val(dataloader, trained_model, device, data_num):
 
     with torch.no_grad():
         for i, sample in enumerate(dataloader, 0):
-            images = sample['image'].float()
+            images = sample['image']
             images = images.to(device)
-            labels = sample['label'].view(batch_size, -1).long()
+            labels = sample['label'].view(batch_size, -1)
             labels = labels.to(device)
             outputs = trained_model(images)
             labels = torch.where(labels == 1)[1]

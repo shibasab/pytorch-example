@@ -31,7 +31,7 @@ out_list = [["ImageId", "Label"]]
 
 with torch.no_grad():
     for i, sample in enumerate(test_dataloader, 0):
-        image = sample['image'].float().to(device)
+        image = sample['image'].to(device)
         output = net(image)
         _, predicted = torch.max(output.data, 1)
         out_list.append([i+1, predicted[0].item()])

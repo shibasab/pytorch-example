@@ -57,11 +57,11 @@ class ToTensor(object):
         if 'label' in sample:
             image, label = sample['image'], sample['label']
             image = image.transpose((2, 0, 1))
-            return {'image': torch.from_numpy(image), 'label': torch.from_numpy(label)}
+            return {'image': torch.from_numpy(image).float(), 'label': torch.from_numpy(label).long()}
         else:
             image = sample['image']
             image = image.transpose((2, 0, 1))
-            return {'image': torch.from_numpy(image)}
+            return {'image': torch.from_numpy(image).float()}
 
 
 def show_batch(sample_batched):
