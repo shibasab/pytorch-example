@@ -1,5 +1,5 @@
 from dataloader import PetDataset, ToTensor
-from alexnet import AlexNet
+from network_in_network import NIN
 
 import os
 import copy
@@ -75,13 +75,13 @@ if __name__ == '__main__':
         dataset, [train_size, val_size])
 
     train_loader = DataLoader(
-        train_dataset, batch_size=64, shuffle=True, num_workers=0, drop_last=True)
+        train_dataset, batch_size=16, shuffle=True, num_workers=0, drop_last=True)
     val_loader = DataLoader(val_dataset, batch_size=1,
                             shuffle=False, num_workers=0)
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-    model = AlexNet(in_channel=3, num_classes=len(classes))
+    model = NIN(in_channel=3, num_classes=len(classes))
     model = model.to(device)
 
     best_model_wts = copy.deepcopy(model.state_dict())
@@ -99,5 +99,5 @@ if __name__ == '__main__':
             best_model_wts = copy.deepcopy(model.state_dict())
 
     model.load_state_dict(best_model_wts)
-    torch.save(model.state_dict(), "models/pet_lenet.pkl")
+    torch.save(model.state_dict(), "models/pet_nin.pkl")
     print('finished!')
