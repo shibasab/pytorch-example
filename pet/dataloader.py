@@ -27,11 +27,8 @@ class PetDataset(Dataset):
         img_name = os.path.join(self.img_dir, self.files[idx])
         image = cv2.imread(img_name)
         image = cv2.resize(image, (self.img_size, self.img_size))
-
         class_name = ' '.join(self.files[idx].split('_')[:-1])
-        label_index = self.classes[class_name]
-        label = np.zeros(len(self.classes))
-        label[label_index] = 1
+        label = np.array(self.classes[class_name])
 
         sample = {'image': image, 'label': label}
 
@@ -60,5 +57,5 @@ if __name__ == '__main__':
         print(i, sample['image'].size(), sample['label'].size())
 
         if i == 3:
-            print(sample['image'])
+            print(sample['image'], sample['label'])
             break
