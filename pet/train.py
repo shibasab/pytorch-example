@@ -1,5 +1,5 @@
 from dataloader import PetDataset, ToTensor
-from network_in_network import NIN
+from vgg19 import VGG19
 
 import os
 import copy
@@ -81,7 +81,7 @@ if __name__ == '__main__':
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-    model = NIN(in_channel=3, num_classes=len(classes))
+    model = VGG19(in_channel=3, num_classes=len(classes))
     model = model.to(device)
 
     best_model_wts = copy.deepcopy(model.state_dict())
@@ -99,5 +99,5 @@ if __name__ == '__main__':
             best_model_wts = copy.deepcopy(model.state_dict())
 
     model.load_state_dict(best_model_wts)
-    torch.save(model.state_dict(), "models/pet_nin.pkl")
+    torch.save(model.state_dict(), "models/pet_vgg19.pkl")
     print('finished!')
