@@ -37,8 +37,10 @@ class ZFNet(nn.Module):
 
         self.fc = nn.Sequential(
             nn.Linear(in_features=256*7*7, out_features=4096),
+            nn.ReLU(inplace=True),
             nn.Dropout(),
             nn.Linear(in_features=4096, out_features=4096),
+            nn.ReLU(inplace=True),
             nn.Dropout(),
             nn.Linear(in_features=4096, out_features=num_classes)
         )

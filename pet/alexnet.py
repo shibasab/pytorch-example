@@ -37,8 +37,10 @@ class AlexNet(nn.Module):
 
         self.fc = nn.Sequential(
             nn.Linear(in_features=256*3*3, out_features=4096),
+            nn.ReLU(inplace=True),
             nn.Dropout(),
             nn.Linear(in_features=4096, out_features=4096),
+            nn.ReLU(inplace=True),
             nn.Dropout(),
             nn.Linear(in_features=4096, out_features=num_classes)
         )
